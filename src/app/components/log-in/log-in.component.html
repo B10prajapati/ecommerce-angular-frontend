@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-content>
+    <app-dynamic-form
+      [formFields]="formFields | async"
+      buttonLabel="Log In"
+    ></app-dynamic-form>
+  </mat-card-content>
+</mat-card>
+
+<mat-paginator
+  [length]="100"
+  [pageSize]="10"
+  [pageSizeOptions]="[5, 10, 25, 100]"
+>
+</mat-paginator>
