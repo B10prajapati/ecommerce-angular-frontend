@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from './../../service/http.service';
+import { Product, ProductsService } from './service/products.service';
 
 @Component({
   selector: 'app-products',
@@ -8,29 +8,9 @@ import { HttpService } from './../../service/http.service';
 })
 export class ProductsComponent implements OnInit {
   breakpoint: number = 4;
-  products: Array<object> = [
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-  ];
-  constructor(private http: HttpService) {
+  products: Product[] = [];
+
+  constructor(private productsService: ProductsService) {
     this._setBreakPoint(window.innerWidth);
   }
 
@@ -65,21 +45,21 @@ export class ProductsComponent implements OnInit {
     // this.breakpoint = eventWindow.innerWidth <= 400 ? 1 : 6;
   }
 
+  // _addItemToCart(id: string, quantity: number): void {
+  //   let payload = {
+  //     productId: id,
+  //     quantity,
+  //   };
+
+  //   this.productsService.addToCart(payload).subscribe(() => {
+  //     this._getProducts();
+  //     alert('Product Added');
+  //   });
+  // }
+
   _getProducts(): void {
-    this.http.getAllProducts().subscribe((data: any) => {
+    this.productsService.paginateProduct(1, 10).subscribe((data) => {
       this.products = data.data;
-    });
-  }
-
-  _addItemToCart(id: string, quantity: number): void {
-    let payload = {
-      productId: id,
-      quantity,
-    };
-
-    this.http.addToCart(payload).subscribe(() => {
-      this._getProducts();
-      alert('Product Added');
     });
   }
   ngOnInit(): void {

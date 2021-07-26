@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormField } from './form-field';
 import { FormfieldControlService } from './service/formfield-control.service';
+
 /**
  * Dynamic Form
  * */
@@ -15,8 +16,10 @@ import { FormfieldControlService } from './service/formfield-control.service';
 export class DynamicFormComponent implements OnInit {
   @Input() formFields: FormField<string>[] | null = [];
   @Input() buttonLabel: string = 'Save';
+
+  @Output() formData = new EventEmitter();
+
   form!: FormGroup;
-  payLoad = ' ';
 
   constructor(private formfieldService: FormfieldControlService) {}
 
@@ -25,6 +28,7 @@ export class DynamicFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.payLoad = JSON.stringify(this.form.getRawValue());
+    console.log('He');
+    this.formData.emit(this.form.getRawValue());
   }
 }

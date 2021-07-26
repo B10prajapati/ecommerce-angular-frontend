@@ -9,7 +9,8 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { HttpService } from './../../service/http.service';
+import { CartService } from './service/cart.service';
+
 interface Cart {
   name: string;
   image: string;
@@ -40,85 +41,98 @@ export class CartComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private http: HttpService) {
+  constructor(private cartService: CartService) {
     this.carts = [
       {
         name: 'Dog',
-        image: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
+        image:
+          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
         price: 100,
         quantity: 24,
       },
       {
         name: 'Cat',
-        image: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
+        image:
+          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
         price: 1200,
         quantity: 44,
       },
       {
         name: 'Bear',
-        image: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
+        image:
+          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
         price: 1400,
         quantity: 54,
       },
       {
         name: 'Man',
-        image: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
+        image:
+          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
         price: 300,
         quantity: 64,
       },
       {
         name: 'Stork',
-        image: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
+        image:
+          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
         price: 5100,
         quantity: 24,
       },
       {
         name: 'Parrot',
-        image: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
+        image:
+          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
         price: 6100,
         quantity: 34,
       },
       {
         name: 'Pet',
-        image: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
+        image:
+          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
         price: 7100,
         quantity: 44,
       },
       {
         name: 'Human',
-        image: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
+        image:
+          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
         price: 9100,
         quantity: 47,
       },
       {
         name: 'Home',
-        image: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
+        image:
+          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
         price: 6100,
         quantity: 40,
       },
 
       {
         name: 'Lion',
-        image: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
+        image:
+          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
         price: 1800,
         quantity: 42,
       },
       {
         name: 'Tiger',
-        image: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
+        image:
+          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
         price: 9100,
         quantity: 46,
       },
 
       {
         name: 'Wolf',
-        image: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
+        image:
+          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
         price: 9100,
         quantity: 1,
       },
       {
         name: 'Fox',
-        image: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
+        image:
+          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
         price: 81600,
         quantity: 2,
       },
@@ -151,7 +165,7 @@ export class CartComponent implements OnInit, AfterViewInit {
   }
 
   _getCart(): void {
-    this.http.getCartItems().subscribe((data: any) => {
+    this.cartService.getCartItems().subscribe((data: any) => {
       this.carts = data.data;
       this.dataSource = new MatTableDataSource<Cart>(this.carts);
       this.dataSource.paginator = this.paginator;
@@ -165,14 +179,14 @@ export class CartComponent implements OnInit, AfterViewInit {
       product: id,
       quantity,
     };
-    this.http.increaseQty(payload).subscribe(() => {
+    this.cartService.increaseQty(payload).subscribe(() => {
       this._getCart();
       alert('Product Added');
     });
   }
 
   _emptyCart() {
-    this.http.emptyCart().subscribe(() => {
+    this.cartService.emptyCart().subscribe(() => {
       this._getCart();
       alert('Cart Emptied');
     });

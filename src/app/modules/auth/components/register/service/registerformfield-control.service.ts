@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { FormField } from '../../dynamic-form/form-field';
+import { FormField } from 'src/app/components/dynamic-form/form-field';
 
 // https://danielk.tech/home/how-to-build-a-dynamic-angular-form
 @Injectable({
@@ -13,22 +13,13 @@ export class RegisterFormfieldControlService {
       new FormField<string>({
         controlType: 'textbox',
         key: 'name',
-        label: 'Name',
+        label: 'Username',
         required: true,
         order: 1,
       }),
 
       new FormField<string>({
-        controlType: 'textbox',
-        key: 'email',
-        label: 'Email',
-        type: 'email',
-        required: true,
-        validator: 'email',
-        order: 2,
-      }),
-      new FormField<string>({
-        controlType: 'textbox',
+        controlType: 'password',
         key: 'password',
         label: 'Password',
         type: 'password',
@@ -36,17 +27,16 @@ export class RegisterFormfieldControlService {
         order: 3,
       }),
 
-      new FormField<string>({
-        controlType: 'dropdown',
-        key: 'role',
-        label: 'Role',
-        options: [
-          { key: 'admin', value: 'Admin' },
-          { key: 'author', value: 'Author' },
-          { key: 'reader', value: 'Reader' },
-        ],
-        order: 3,
-      }),
+      // new FormField<string>({
+      //   controlType: 'dropdown',
+      //   key: 'role',
+      //   label: 'Role',
+      //   options: [
+      //     { key: 'admin', value: 'Admin' },
+      //     { key: 'user', value: 'User' },
+      //   ],
+      //   order: 3,
+      // }),
     ];
 
     return of(inputs.sort((a, b) => a.order - b.order));

@@ -1,5 +1,5 @@
 <div>
-  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <form [formGroup]="form">
     <div *ngFor="let formField of formFields" class="form-group">
       <app-dynamic-form-input
         [input]="formField"
@@ -14,13 +14,10 @@
         type="submit"
         class="btn btn-primary"
         [disabled]="form.invalid"
+        (click)="onSubmit()"
       >
         {{ buttonLabel }}
       </button>
     </div>
   </form>
-
-  <div *ngIf="payLoad" class="form-group">
-    <strong>Here's the payload</strong><br />{{ payLoad }}
-  </div>
 </div>

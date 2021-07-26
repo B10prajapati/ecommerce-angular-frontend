@@ -1,13 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { FormField } from '../../dynamic-form/form-field';
+import { FormField } from 'src/app/components/dynamic-form/form-field';
+import { ProductsService } from 'src/app/modules/products/service/products.service';
 
 // https://danielk.tech/home/how-to-build-a-dynamic-angular-form
 @Injectable({
   providedIn: 'root',
 })
-export class LoginFormfieldControlService {
-  constructor() {}
+export class AdminProductService extends ProductsService {
+  constructor(private httpClient: HttpClient) {
+    super(httpClient);
+  }
   getFormFields() {
     const inputs: FormField<string>[] = [
       new FormField<string>({

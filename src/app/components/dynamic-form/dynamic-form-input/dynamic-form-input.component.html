@@ -22,6 +22,39 @@
       >
     </mat-form-field>
 
+    <mat-form-field appearance="fill" *ngSwitchCase="'password'">
+      <mat-label [attr.for]="input.key">{{ input.label }}</mat-label>
+      <input
+        matInput
+        class="form-control"
+        [formControlName]="input.key"
+        [id]="input.key"
+        [type]="hidePassword ? 'password' : 'text'"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hidePassword = !hidePassword"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePassword"
+      >
+        <mat-icon>{{
+          hidePassword ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+
+      <mat-error
+        *ngIf="input.required && form.get(input.key)?.hasError('required')"
+        >{{ input.label }} is required.</mat-error
+      >
+      <mat-error
+        *ngIf="
+          input.validator && form.get(input.key)?.hasError(input.validator)
+        "
+        >Validation for {{ input.validator }} failed.</mat-error
+      >
+    </mat-form-field>
+
     <mat-form-field appearance="fill" *ngSwitchCase="'dropdown'">
       <mat-label [attr.for]="input.key">{{ input.label }}</mat-label>
       <mat-select

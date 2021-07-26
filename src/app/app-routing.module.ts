@@ -19,9 +19,22 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/orders/orders.module').then((m) => m.OrdersModule),
   },
+
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./modules/admin/admin.module').then((m) => m.AdminModule),
+  },
+  {
+    path: 'products',
+    loadChildren: () =>
+      import('./modules/products/products.module').then(
+        (m) => m.ProductsModule
+      ),
+  },
   {
     path: '',
-    redirectTo: '',
+    redirectTo: 'products',
     pathMatch: 'full',
   },
 ];

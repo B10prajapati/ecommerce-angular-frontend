@@ -11,6 +11,7 @@ export class DynamicFormInputComponent {
   @Input() input!: FormField<string>;
   @Input() form!: FormGroup;
 
+  hidePassword = true;
   get isValid() {
     if (this.input?.key) return this.form.controls[this.input.key].valid;
     return false;
