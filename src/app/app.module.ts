@@ -10,9 +10,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AngularMaterialModule } from './modules/angular-material/angular-material.module';
+import { CartComponent } from './components/cart/cart.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { ProductsComponent } from './components/products/products.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    CartComponent,
+    NavbarComponent,
+    ProductsComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -21,6 +30,7 @@ import { AngularMaterialModule } from './modules/angular-material/angular-materi
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

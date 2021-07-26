@@ -1,16 +1,7 @@
-<!-- Toolbar -->
-<mat-toolbar color="primary" class="app-header">
-  <div>
-    <a href="#" target="_blank">SanoSanshar</a>
-  </div>
-  <span class="nav-tool-items">
-    <a mat-button routerLink="auth/login" routerLinkActive="mat-flat-button"
-      >Log in</a
-    >
-    <a mat-button routerLink="auth/register" routerLinkActive="mat-flat-button"
-      >Register</a
-    >
-  </span>
-</mat-toolbar>
+<app-navbar></app-navbar>
 
-<router-outlet></router-outlet>
+<div class="container">
+  <app-cart></app-cart>
+  <app-products></app-products>
+  <router-outlet></router-outlet>
+</div>

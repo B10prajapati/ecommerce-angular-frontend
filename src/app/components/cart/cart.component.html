@@ -1,0 +1,81 @@
+<mat-form-field appearance="standard">
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input />
+</mat-form-field>
+
+<div class="cart-table-container mat-elevation-z8">
+  <mat-table class="cart-table" recycleRows [dataSource]="dataSource" matSort>
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell mat-sort-header *matHeaderCellDef>Name.</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+      <mat-footer-cell *matFooterCellDef>Total</mat-footer-cell>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="image">
+      <mat-header-cell mat-sort-header *matHeaderCellDef
+        >Image.</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element"
+        ><img
+          class="product-image"
+          src="{{ element.image }}"
+          alt="{{ element.name }}"
+      /></mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+    <!-- Position Column -->
+    <ng-container matColumnDef="price">
+      <mat-header-cell mat-sort-header *matHeaderCellDef
+        >Price.</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element">{{ element.price }}</mat-cell>
+      <mat-footer-cell *matFooterCellDef>{{ getTotalCost() }}</mat-footer-cell>
+    </ng-container>
+    <!-- Position Column -->
+    <ng-container matColumnDef="quantity">
+      <mat-header-cell mat-sort-header *matHeaderCellDef
+        >Quantity.</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element">{{ element.quantity }}</mat-cell>
+      <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+    </ng-container>
+
+    <!-- Disclaimer column -->
+    <ng-container matColumnDef="disclaimer">
+      <mat-footer-cell *matFooterCellDef colspan="2">
+        Please note that the cost of items displayed are completely and totally
+        made up.
+      </mat-footer-cell>
+    </ng-container>
+
+    <!-- Row shown when there is no matching data. -->
+    <mat-row *matNoDataRow>
+      <mat-cell colspan="4">
+        No data matching the filter "{{ input.value }}"
+      </mat-cell>
+    </mat-row>
+
+    <!-- Header,Rows and Footer -->
+    <mat-header-row
+      *matHeaderRowDef="displayedColumns; sticky: true"
+    ></mat-header-row>
+    <mat-row
+      matRipple
+      *matRowDef="let row; columns: displayedColumns"
+    ></mat-row>
+
+    <mat-footer-row
+      *matFooterRowDef="displayedColumns; sticky: true"
+    ></mat-footer-row>
+    <mat-footer-row
+      *matFooterRowDef="['disclaimer']"
+      class="example-second-footer-row"
+    ></mat-footer-row>
+  </mat-table>
+</div>
+<mat-paginator
+  [pageSizeOptions]="[5, 10, 20]"
+  showFirstLastButtons
+></mat-paginator>

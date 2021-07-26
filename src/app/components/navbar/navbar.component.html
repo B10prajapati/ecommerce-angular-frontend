@@ -1,0 +1,37 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-button routerLink="/">My App</button>
+
+    <span class="example-spacer"></span>
+
+    <button
+      routerLink="auth/login"
+      routerLinkActive="mat-raised-button"
+      mat-button
+      color="secondary"
+      aria-label="Icon"
+      aria-hidden="false"
+    >
+      Login
+    </button>
+
+    <button
+      routerLink="auth/register"
+      color="secondary"
+      mat-button
+      routerLinkActive="mat-raised-button"
+      aria-label="Icon"
+      aria-hidden="false"
+    >
+      Register
+    </button>
+    <button
+      routerLink="/cart"
+      mat-icon-button
+      aria-label="Icon"
+      aria-hidden="false"
+    >
+      <mat-icon color="secondary"> shopping_cart </mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
