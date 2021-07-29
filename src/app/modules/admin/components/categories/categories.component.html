@@ -1,0 +1,67 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Add Category</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <app-dynamic-form
+      [formFields]="formFields | async"
+      buttonLabel="Add"
+      (formData)="addData($event)"
+    >
+    </app-dynamic-form>
+  </mat-card-content>
+</mat-card>
+
+<mat-form-field appearance="standard">
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input />
+</mat-form-field>
+
+<div class="cart-table-container mat-elevation-z8">
+  <mat-table
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="drop($event)"
+    class="cart-table"
+    recycleRows
+    [dataSource]="dataSource"
+    matSort
+  >
+    <ng-container [matColumnDef]="key" *ngFor="let key of displayedColumns">
+      <mat-header-cell cdkDrag mat-sort-header *matHeaderCellDef>{{
+        key.charAt(0).toUpperCase() + key.slice(1)
+      }}</mat-header-cell>
+      <mat-cell class="product-cell" *matCellDef="let product">{{
+        product[key]
+      }}</mat-cell>
+    </ng-container>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+        No data matching the filter "{{ input.value }}"
+      </td>
+    </tr>
+
+    <!-- Header,Rows and Footer -->
+    <!-- Header -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <!-- Row -->
+    <mat-row
+      matRipple
+      *matRowDef="let row; columns: displayedColumns"
+    ></mat-row>
+    <!-- Footer -->
+  </mat-table>
+</div>
+<mat-paginator
+  [pageSizeOptions]="[5, 10, 20]"
+  showFirstLastButtons
+></mat-paginator>
+
+<ng-container [matColumnDef]="key" *ngFor="let key of displayedColumns">
+  <mat-header-cell mat-sort-header *matHeaderCellDef>{{
+    key.charAt(0).toUpperCase() + key.slice(1)
+  }}</mat-header-cell>
+  <mat-cell *matCellDef="let product">{{ product[key] }}</mat-cell>
+</ng-container>

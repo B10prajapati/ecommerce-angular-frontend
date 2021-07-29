@@ -1,5 +1,13 @@
-<app-navbar></app-navbar>
+<!-- Addmin View -->
+<app-admin-sidenav *ngIf="router.url.includes('admin')">
+  <div>
+    <router-outlet *ngIf="router.url.includes('admin')"></router-outlet>
+  </div>
+</app-admin-sidenav>
 
-<div class="container">
+<!-- Non Admin View -->
+<app-navbar *ngIf="!router.url.includes('admin')"></app-navbar>
+<!-- ROuter Container -->
+<div class="container" *ngIf="!router.url.includes('admin')">
   <router-outlet></router-outlet>
 </div>

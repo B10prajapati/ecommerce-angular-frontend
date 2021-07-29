@@ -1,0 +1,7 @@
+<div>
+  <p>ID: {{ user.id }}</p>
+
+  <p>Name: {{ user.name }}</p>
+  <p>Password: {{ user.password }}</p>
+  <p *ngFor="let role of user.roles">Role: {{ role }}</p>
+</div>

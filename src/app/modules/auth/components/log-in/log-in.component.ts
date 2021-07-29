@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
-import { FormField } from 'src/app/components/dynamic-form/form-field';
-import { AuthResult, AuthService } from '../../service/auth.service';
+import { FormField } from 'src/app/modules/dynamic-form/form-field';
+import { AuthResult, AuthService } from 'src/app/service/backend/auth.service';
 import { LoginFormfieldControlService } from './service/loginformfield-control.service';
 
 @Component({
@@ -52,16 +52,18 @@ export class LogInComponent {
       const { name, password } = data;
       if (name && password)
         this.auth
-          .login({
+          ?.login({
             username: data.name,
             password: data.password,
           })
           .subscribe(
             (data: AuthResult) => {
               console.log(data);
-              console.log('sdfd');
               this.cookie.set('auth-token', data.data.payload.token);
-              this.cookie.set('refresh-token', data.data.payload.refreshToken!);
+              this.cookie.set(
+                'refresh-token',
+                data.data.payload.refresh_token!
+              );
             },
             (err) => {
               console.log(err);

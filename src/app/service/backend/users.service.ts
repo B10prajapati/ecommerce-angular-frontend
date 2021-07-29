@@ -11,8 +11,8 @@ export interface User {
   name: string;
   password: string;
   isActive: boolean;
-  createdDateTime: Date;
-  updatedDateTime: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 @Injectable({
   providedIn: 'root',

@@ -3,39 +3,16 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'auth',
-    loadChildren: () =>
-      import('./modules/auth/auth.module').then((m) => m.AuthModule),
-  },
-  {
-    path: 'customers',
-    loadChildren: () =>
-      import('./modules/customers/customers.module').then(
-        (m) => m.CustomersModule
-      ),
-  },
-  {
-    path: 'orders',
-    loadChildren: () =>
-      import('./modules/orders/orders.module').then((m) => m.OrdersModule),
-  },
-
-  {
     path: 'admin',
     loadChildren: () =>
-      import('./modules/admin/admin.module').then((m) => m.AdminModule),
-  },
-  {
-    path: 'products',
-    loadChildren: () =>
-      import('./modules/products/products.module').then(
-        (m) => m.ProductsModule
-      ),
+      import('src/app/modules/admin/admin.module').then((m) => m.AdminModule),
   },
   {
     path: '',
-    redirectTo: 'products',
-    pathMatch: 'full',
+    loadChildren: () =>
+      import('src/app/modules/customers/customers.module').then(
+        (m) => m.CustomersModule
+      ),
   },
 ];
 

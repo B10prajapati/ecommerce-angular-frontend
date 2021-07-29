@@ -1,0 +1,14 @@
+<mat-card class="admin-login-card-container">
+  <mat-card-header>
+    <mat-card-title>Login</mat-card-title>
+    <mat-card-subtitle>🎟 🕵 Verify your intentions 🎟 🕵 </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <app-dynamic-form
+      [formFields]="formFields | async"
+      buttonLabel="Log In"
+      (formData)="addData($event)"
+    >
+    </app-dynamic-form>
+  </mat-card-content>
+</mat-card>

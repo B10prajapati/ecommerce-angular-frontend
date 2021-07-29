@@ -1,12 +1,14 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
+import { DynamicFormModule } from '../dynamic-form/dynamic-form.module';
 import { AdminRoutingModule } from './admin-routing.module';
-import { CategoriesComponent } from './categories/categories.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProductsComponent } from './products/products.component';
-import { UsersComponent } from './users/users.component';
+import { CategoriesComponent } from './components/categories/categories.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AdminLogInComponent } from './components/log-in/admin-log-in.component';
+import { ProductsComponent } from './components/products/products.component';
+import { UsersComponent } from './components/users/users.component';
 
 @NgModule({
   declarations: [
@@ -14,12 +16,15 @@ import { UsersComponent } from './users/users.component';
     ProductsComponent,
     UsersComponent,
     CategoriesComponent,
+    AdminLogInComponent,
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     AngularMaterialModule,
-    ReactiveFormsModule,
+
+    DynamicFormModule,
+    DragDropModule,
   ],
 })
 export class AdminModule {}

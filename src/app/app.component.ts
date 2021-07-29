@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormfieldControlService } from './components/dynamic-form/service/formfield-control.service';
+import { Router } from '@angular/router';
+import { FormfieldControlService } from './modules/dynamic-form/service/formfield-control.service';
 
 interface PeriodicElement {
   name: string;
@@ -28,6 +29,5 @@ const ELEMENT_DATA: PeriodicElement[] = [
   providers: [FormfieldControlService],
 })
 export class AppComponent {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  constructor(public router: Router) {}
 }
