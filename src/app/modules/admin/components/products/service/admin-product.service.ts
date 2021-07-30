@@ -5,7 +5,6 @@ import { of } from 'rxjs';
 import { FormField } from 'src/app/modules/dynamic-form/form-field';
 import { ProductsService } from 'src/app/service/backend/products.service';
 
-
 // https://danielk.tech/home/how-to-build-a-dynamic-angular-form
 @Injectable({
   providedIn: 'root',
@@ -43,6 +42,7 @@ export class AdminProductService extends ProductsService {
         label: 'Active',
         type: 'boolean',
 
+        value: true,
         order: 3,
       }),
     ];

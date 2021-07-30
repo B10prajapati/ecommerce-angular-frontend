@@ -1,11 +1,14 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { FormField } from 'src/app/modules/dynamic-form/form-field';
-import { Product } from './../../../../service/backend/products.service';
+import { Product } from 'src/app/service/backend/products.service';
+import { DialogComponent } from '../dialog/dialog.component';
 import { AdminProductService } from './service/admin-product.service';
 export function typedKeys<T>(o: T): (keyof T)[] {
   // type cast should be safe because that's what really Object.keys() does
@@ -32,7 +35,11 @@ export class ProductsComponent implements OnInit {
 
   products: Product[];
 
-  constructor(private productService: AdminProductService) {
+  constructor(
+    private productService: AdminProductService,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {
     this.createFormFields = this.productService.getFormFields();
     this.updateFormFields = this.productService.getFormFields();
     this.products = [
@@ -83,17 +90,45 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  deleteData = (data: any) => {
-    const id = this.selectedProduct?.id;
+  openDialog() {
+    console.log(this.selectedProduct);
+    // if (this.selectedProduct !== null) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        dialogHeader: `Delete Product`,
+        dialogMessage: `Are you sure you want to delete "${this.selectedProduct?.name}"?`,
+        dialogActionLabel: 'Delete',
+      },
+    });
+    console.log(dialogRef);
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+      if (result) {
+        this.deleteData();
+      }
+    });
+    // }
+  }
+
+  deleteData = () => {
+    const product = this.selectedProduct!;
 
     this.productService
       .deleteProduct(this.selectedProduct?.id!)
       .subscribe((result) => {
-        this.products = this.products.filter((product) => {
-          return product.id !== id;
+        this.products = this.products.filter((prod) => {
+          return prod.id !== product.id;
         });
 
         this.dataSource.data = this.products;
+
+        const name = product?.name;
+        const snack = this.snackBar.open(`${name} deleted`, 'Dismiss', {
+          duration: 3 * 1000, //5sec,
+
+          horizontalPosition: 'right',
+          verticalPosition: 'bottom',
+        });
       });
 
     this.selectedProduct = null;

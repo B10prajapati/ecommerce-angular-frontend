@@ -6,6 +6,7 @@ import { DynamicFormModule } from '../dynamic-form/dynamic-form.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 import { AdminLogInComponent } from './components/log-in/admin-log-in.component';
 import { ProductsComponent } from './components/products/products.component';
 import { UsersComponent } from './components/users/users.component';
@@ -17,6 +18,7 @@ import { UsersComponent } from './components/users/users.component';
     UsersComponent,
     CategoriesComponent,
     AdminLogInComponent,
+    DialogComponent,
   ],
   imports: [
     CommonModule,
