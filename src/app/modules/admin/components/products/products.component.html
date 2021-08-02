@@ -1,7 +1,9 @@
+<!-- Tab -->
 <mat-tab-group
   [(selectedIndex)]="selectedTab"
   (selectedIndexChange)="tabChangeHandler($event)"
 >
+  <!-- Create -->
   <mat-tab label="Create">
     <mat-card>
       <mat-card-header>
@@ -17,6 +19,7 @@
       </mat-card-content>
     </mat-card>
   </mat-tab>
+  <!-- Update/DElete -->
   <mat-tab label="Update/Delete">
     <mat-card>
       <mat-card-header>
@@ -32,13 +35,20 @@
         </app-dynamic-form>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-icon-button color="warn" (click)="openDialog()">
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="openDialog()"
+          [disabled]="selectedProduct === null"
+        >
           Delete <mat-icon>delete</mat-icon>
         </button>
       </mat-card-actions>
     </mat-card>
   </mat-tab>
 </mat-tab-group>
+
+<!-- Table -->
 
 <mat-form-field appearance="standard">
   <mat-label>Filter</mat-label>
@@ -64,6 +74,19 @@
       }}</mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="images">
+      <mat-header-cell cdkDrag mat-sort-header *matHeaderCellDef
+        >Images</mat-header-cell
+      >
+      <mat-cell class="product-cell" *matCellDef="let product">
+        <img
+          src="{{
+            product.images.length > 0 ? product.images[0].thumbnailUrl : ''
+          }}"
+        />
+      </mat-cell>
+    </ng-container>
+
     <!-- Row shown when there is no matching data. -->
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" [attr.colspan]="displayedColumns.length">
@@ -73,11 +96,13 @@
 
     <!-- Header,Rows and Footer -->
     <!-- Header -->
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-header-row
+      *matHeaderRowDef="displayedColumns.concat(imageColumn)"
+    ></mat-header-row>
     <!-- Row -->
     <mat-row
       matRipple
-      *matRowDef="let row; columns: displayedColumns"
+      *matRowDef="let row; columns: displayedColumns.concat(imageColumn)"
       (click)="rowSelectHandler(row)"
     ></mat-row>
     <!-- Footer -->

@@ -12,6 +12,11 @@ export interface Product {
   isActive: boolean;
   createdDateTime: Date;
   updatedDateTime: Date;
+  images: {
+    url: string;
+    thumbnail: string;
+    name: string;
+  }[];
 }
 export interface PaginatedResult<T> {
   totalCount: number;

@@ -1,10 +1,12 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import Compress from 'compress.js';
 import { Observable } from 'rxjs';
 import { FormField } from 'src/app/modules/dynamic-form/form-field';
 import { Product } from 'src/app/service/backend/products.service';
@@ -22,6 +24,7 @@ export function typedKeys<T>(o: T): (keyof T)[] {
 })
 export class ProductsComponent implements OnInit {
   displayedColumns: string[];
+  imageColumn = 'images';
   dataSource: MatTableDataSource<Product>;
   expandedElement!: Product | null;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -30,10 +33,19 @@ export class ProductsComponent implements OnInit {
   updateFormFields: Observable<FormField<any>[]>;
 
   selectedTab = 0;
-  selectedProduct: Product | null = null;
+  public selectedProduct: Product | null = null;
   selectedProductFormValue = {};
 
   products: Product[];
+  compress = new Compress();
+
+  imgFile: string = '';
+
+  public uploadForm = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    file: new FormControl('', [Validators.required]),
+    imgSrc: new FormControl('', [Validators.required]),
+  });
 
   constructor(
     private productService: AdminProductService,
@@ -50,6 +62,7 @@ export class ProductsComponent implements OnInit {
         createdDateTime: new Date(Date.now()),
         updatedDateTime: new Date(Date.now()),
         price: 0,
+        images: [],
       },
     ];
 
@@ -65,6 +78,7 @@ export class ProductsComponent implements OnInit {
       console.log(data);
       this.products = this.products.concat(data);
       this.dataSource.data = this.products;
+      this.snackBar.open('Product Added', 'Dismiss');
     });
   }
 
@@ -87,11 +101,12 @@ export class ProductsComponent implements OnInit {
       console.log(this.products);
 
       this.dataSource.data = this.products;
+
+      this.snackBar.open('Product Updated', 'Dismiss');
     });
   }
 
   openDialog() {
-    console.log(this.selectedProduct);
     // if (this.selectedProduct !== null) {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
@@ -112,26 +127,27 @@ export class ProductsComponent implements OnInit {
 
   deleteData = () => {
     const product = this.selectedProduct!;
+    if (product) {
+      this.productService
+        .deleteProduct(this.selectedProduct?.id!)
+        .subscribe((result) => {
+          this.products = this.products.filter((prod) => {
+            return prod.id !== product.id;
+          });
 
-    this.productService
-      .deleteProduct(this.selectedProduct?.id!)
-      .subscribe((result) => {
-        this.products = this.products.filter((prod) => {
-          return prod.id !== product.id;
+          this.dataSource.data = this.products;
+
+          const name = product?.name;
+          const snack = this.snackBar.open(`${name} deleted`, 'Dismiss', {
+            duration: 3 * 1000, //5sec,
+
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+          });
         });
 
-        this.dataSource.data = this.products;
-
-        const name = product?.name;
-        const snack = this.snackBar.open(`${name} deleted`, 'Dismiss', {
-          duration: 3 * 1000, //5sec,
-
-          horizontalPosition: 'right',
-          verticalPosition: 'bottom',
-        });
-      });
-
-    this.selectedProduct = null;
+      this.selectedProduct = null;
+    }
   };
 
   tabChangeHandler(tabValue: number) {
@@ -148,6 +164,7 @@ export class ProductsComponent implements OnInit {
       name: product.name,
       price: product.price,
       isActive: product.isActive,
+      images: product.images,
     };
     console.log(this.selectedTab);
   }

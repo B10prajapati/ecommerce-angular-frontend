@@ -28,6 +28,8 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     [key: string]: any;
   } = {};
 
+  public reset = false;
+
   @Output() formData = new EventEmitter();
 
   form!: FormGroup;
@@ -39,12 +41,18 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.reset = !this.reset;
+
     if (this.form) this.form.setValue(changes.value.currentValue);
   }
 
   onSubmit() {
-    console.log(this.form.getRawValue());
     this.formData.emit(this.form.getRawValue());
     this.form.reset();
+    this.reset = !this.reset;
+  }
+  onReset() {
+    this.form.reset();
+    this.reset = !this.reset;
   }
 }

@@ -1,0 +1,36 @@
+<div
+  class="container"
+  appDragAndDropUpload
+  (fileDropped)="onFileDropped($event)"
+>
+  <input
+    type="file"
+    #fileDropRef
+    id="fileDropRef"
+    [multiple]="true"
+    (change)="fileBrowseHandler($event)"
+  />
+  <button mat-icon-button>
+    <p>{{ reset }}</p>
+    <mat-icon>cloud_upload</mat-icon>
+  </button>
+  <h3>Drag and drop file here</h3>
+  <h3>or</h3>
+  <label for="fileDropRef">Browse for file</label>
+</div>
+<div class="files-list">
+  <div class="single-file" *ngFor="let file of files; let i = index">
+    <img [id]="file.name" [src]="file.url" width="200px" alt="file" />
+    <div class="info">
+      <h4 class="name">
+        {{ file?.name }}
+      </h4>
+      <h4 class="name">
+        {{ file?.size }}
+      </h4>
+    </div>
+    <button mat-icon-button color="warn" (click)="deleteFile(i, file.name)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</div>

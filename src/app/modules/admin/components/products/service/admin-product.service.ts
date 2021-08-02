@@ -45,6 +45,12 @@ export class AdminProductService extends ProductsService {
         value: true,
         order: 3,
       }),
+      new FormField({
+        controlType: 'upload',
+        key: 'images',
+        order: 4,
+        value: '',
+      }),
     ];
 
     return of(inputs.sort((a, b) => a.order - b.order));

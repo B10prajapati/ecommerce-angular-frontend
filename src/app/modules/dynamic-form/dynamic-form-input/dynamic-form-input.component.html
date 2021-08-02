@@ -134,5 +134,13 @@
         [value]="input.value"
       ></textarea>
     </mat-form-field>
+
+    <!-- Upload Form -->
+    <app-drag-and-drop-upload
+      [reset]="reset"
+      [formGroup]="form"
+      (fileData)="handleFiles($event)"
+      *ngSwitchCase="'upload'"
+    ></app-drag-and-drop-upload>
   </div>
 </div>
