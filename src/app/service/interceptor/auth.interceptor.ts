@@ -47,9 +47,16 @@ export class AuthInterceptor implements HttpInterceptor {
 
       return this.auth.refresh().pipe(
         tap((data) => {
-          console.log('Data', data);
-          this.auth.setToken('auth-token', data.data.payload.token);
-          this.auth.setToken('refresh-token', data.data.payload.refresh_token);
+          if (data.status === 'success') {
+            console.log('Data', data);
+            this.auth.setToken('auth-token', data.data.payload.token);
+            this.auth.setToken(
+              'refresh-token',
+              data.data.payload.refresh_token
+            );
+          } else {
+            this.logout();
+          }
 
           this.refreshTokenInProgress = false;
           this.tokenRefreshedSource.next();
@@ -90,7 +97,6 @@ export class AuthInterceptor implements HttpInterceptor {
           }),
           catchError((e) => {
             this.logout();
-
             return throwError('Refresh Token Invalid');
           })
         );
