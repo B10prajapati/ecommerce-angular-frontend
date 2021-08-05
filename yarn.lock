@@ -22,6 +22,7 @@
   version "0.1202.0"
   resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.1202.0.tgz#15e958cd6933770873d2979c5a2684ea241eebc3"
   integrity sha512-99O8iLO9LEVTPYN6kj6XINHxjw13ofTS48hm3D0i44QMEyq3SRH1ctH6HcUAtbgPF3VjOUFr5vRYpQN1OdOCXw==
+
   dependencies:
     "@angular-devkit/core" "12.2.0"
     rxjs "6.6.7"
@@ -2154,6 +2155,7 @@ bytes@3.1.0:
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.0.tgz#f6cf7933a360e0588fa9fde85651cdc7f805d1f6"
   integrity sha512-zauLjrfCG+xvoyaqLoV8bLVXXNGC4JqlxFCutSDWA6fJrTo2ZuvLYTqZ7aHBLZSMOopbzwv8f+wZcVzfVTI2Dg==
 
+
 cacache@15.0.6:
   version "15.0.6"
   resolved "https://registry.yarnpkg.com/cacache/-/cacache-15.0.6.tgz#65a8c580fda15b59150fb76bf3f3a8e45d583099"
@@ -2178,6 +2180,7 @@ cacache@15.0.6:
     unique-filename "^1.1.1"
 
 cacache@^15.0.5, cacache@^15.2.0:
+
   version "15.2.0"
   resolved "https://registry.yarnpkg.com/cacache/-/cacache-15.2.0.tgz#73af75f77c58e72d8c630a7a2858cb18ef523389"
   integrity sha512-uKoJSHmnrqXgthDFx/IU6ED/5xd+NNGe+Bb+kLZy7Ku4P+BaiWEUflAKPZ7eAzsYGcsAGASJZsybXp+quEcHTw==
@@ -4439,6 +4442,12 @@ jasmine-core@^3.6.0, jasmine-core@~3.8.0:
   resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-3.8.0.tgz#815399aae5aa5d9beeb1262805f981b99ffc9bf0"
   integrity sha512-zl0nZWDrmbCiKns0NcjkFGYkVTGCPUgoHypTaj+G2AzaWus7QGoXARSlYsSle2VRpSdfJmM+hzmFKzQNhF2kHg==
 
+jasmine-core@~3.7.0:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-3.7.1.tgz#0401327f6249eac993d47bbfa18d4e8efacfb561"
+  integrity sha512-DH3oYDS/AUvvr22+xUBW62m1Xoy7tUlY1tsxKEJvl5JeJ7q8zd1K5bUwiOxdH+erj6l2vAMM3hV25Xs9/WrmuQ==
+
+
 jest-worker@^27.0.2:
   version "27.0.6"
   resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-27.0.6.tgz#a5fdb1e14ad34eb228cfe162d9f729cdbfa28aed"
@@ -5165,10 +5174,10 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-ngx-cookie-service@^12.0.0:
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/ngx-cookie-service/-/ngx-cookie-service-12.0.0.tgz#1578dabe80ef9fa3db5234bd4c1c7122adbc9ff4"
-  integrity sha512-/Pklpn8Ul0P016Dc5isEU8AnTT3CI6Zz1JhrW1uH/3oJbfW7MGTtJAgAv1Rk92rfe+kNTDh+O+yj0xmr1Mt/tA==
+ngx-cookie-service@^12.0.2:
+  version "12.0.2"
+  resolved "https://registry.yarnpkg.com/ngx-cookie-service/-/ngx-cookie-service-12.0.2.tgz#1404fb983f95025209f73b8d0f4d0e1abeb5fcbf"
+  integrity sha512-trj7OKxPuwek8Tp6VcXjs8R/x3wd+HjfPr23Jy+1M7mSMo87v88Wmi1OyY7wGVBBoN2FPkalv0Z3InGZGtE+Wg==
   dependencies:
     tslib "^2.0.0"
 
@@ -7520,6 +7529,7 @@ tslib@~2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
   integrity sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
+
 
 tslib@~2.1.0:
   version "2.1.0"
