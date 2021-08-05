@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { BaseService } from 'src/app/service/base.service';
+import { environment } from 'src/environments/environment';
 
 export interface Product {
   id: string;
@@ -32,7 +33,7 @@ export class ProductsService extends BaseService {
   constructor(private http: HttpClient, private cookie: CookieService) {
     super();
   }
-  productUrl = `http://localhost:3000/api/products`;
+  productUrl = `${environment.baseURL}/products`;
 
   getProduct = () => {
     return this.http.get(this.productUrl).pipe(
