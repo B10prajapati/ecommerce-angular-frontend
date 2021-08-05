@@ -5,18 +5,8 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, OnInit } from '@angular/core';
 import { CartService } from './service/cart.service';
-
-interface Cart {
-  name: string;
-  image: string;
-  price: number;
-  quantity: number;
-}
 
 @Component({
   selector: 'app-cart',
@@ -33,162 +23,49 @@ interface Cart {
     ]),
   ],
 })
-export class CartComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['name', 'image', 'price', 'quantity'];
-  carts: Cart[] = [];
-  dataSource: MatTableDataSource<Cart>;
-  expandedElement!: Cart | null;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+export class CartComponent implements OnInit {
+  items = this.cartService.getItems();
 
-  constructor(private cartService: CartService) {
-    this.carts = [
-      {
-        name: 'Dog',
-        image:
-          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
-        price: 100,
-        quantity: 24,
-      },
-      {
-        name: 'Cat',
-        image:
-          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
-        price: 1200,
-        quantity: 44,
-      },
-      {
-        name: 'Bear',
-        image:
-          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
-        price: 1400,
-        quantity: 54,
-      },
-      {
-        name: 'Man',
-        image:
-          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
-        price: 300,
-        quantity: 64,
-      },
-      {
-        name: 'Stork',
-        image:
-          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
-        price: 5100,
-        quantity: 24,
-      },
-      {
-        name: 'Parrot',
-        image:
-          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
-        price: 6100,
-        quantity: 34,
-      },
-      {
-        name: 'Pet',
-        image:
-          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
-        price: 7100,
-        quantity: 44,
-      },
-      {
-        name: 'Human',
-        image:
-          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
-        price: 9100,
-        quantity: 47,
-      },
-      {
-        name: 'Home',
-        image:
-          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
-        price: 6100,
-        quantity: 40,
-      },
+  constructor(private cartService: CartService) {}
 
-      {
-        name: 'Lion',
-        image:
-          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
-        price: 1800,
-        quantity: 42,
-      },
-      {
-        name: 'Tiger',
-        image:
-          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
-        price: 9100,
-        quantity: 46,
-      },
-
-      {
-        name: 'Wolf',
-        image:
-          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
-        price: 9100,
-        quantity: 1,
-      },
-      {
-        name: 'Fox',
-        image:
-          'cartServices://material.angular.io/assets/img/examples/shiba2.jpg',
-        price: 81600,
-        quantity: 2,
-      },
-    ];
-    this.dataSource = new MatTableDataSource<Cart>(this.carts);
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
   /** Gets the total cost of all transactions. */
   getTotalCost() {
-    return this.carts
+    return this.items
       .map((t: any) => t.price * t.quantity)
       .reduce((acc: number, value: number) => acc + value, 0);
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
   ngOnInit(): void {
-    this._getCart();
+    this.getCart();
   }
 
-  _getCart(): void {
-    this.cartService.getCartItems().subscribe((data: any) => {
-      this.carts = data.data;
-      this.dataSource = new MatTableDataSource<Cart>(this.carts);
-      this.dataSource.paginator = this.paginator;
+  getCart(): void {
+    this.items = this.cartService.getItems();
 
-      console.log(this.carts);
-    });
+    // this.cartService.getCartItems().subscribe((data: any) => {
+    //   this.carts = data.data;
+    //   this.dataSource = new MatTableDataSource<Cart>(this.carts);
+    //   this.dataSource.paginator = this.paginator;
+    //   console.log(this.carts);
+    // });
   }
 
-  _incrementQty(id: string, quantity: number) {
+  incrementQty(id: string, quantity: number) {
     const payload = {
       product: id,
       quantity,
     };
-    this.cartService.increaseQty(payload).subscribe(() => {
-      this._getCart();
-      alert('Product Added');
-    });
+    // this.cartService.increaseQty(payload).subscribe(() => {
+    //   this._getCart();
+    //   alert('Product Added');
+    // });
   }
 
-  _emptyCart() {
-    this.cartService.emptyCart().subscribe(() => {
-      this._getCart();
-      alert('Cart Emptied');
-    });
+  emptyCart() {
+    this.items = this.cartService.clearCart();
+  }
+
+  delete(id: string) {
+    this.items = this.cartService.remove(id);
   }
 }

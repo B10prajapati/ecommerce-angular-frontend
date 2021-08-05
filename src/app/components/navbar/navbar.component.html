@@ -34,7 +34,14 @@
       aria-label="Icon"
       aria-hidden="false"
     >
-      <mat-icon color="secondary"> shopping_cart </mat-icon>
+      <mat-icon
+        color="secondary"
+        matBadge="{{ (carts$ | async)?.length }}"
+        matBadgeColor="accent"
+        matBadgeSize="small"
+      >
+        shopping_cart
+      </mat-icon>
     </button>
 
     <button

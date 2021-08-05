@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Product } from 'src/app/service/backend/products.service';
+import {
+  SNACKBAR_BUTTON_TITLE,
+  SNACKBAR_OPTIONS,
+} from './../../../../service/utils/config';
+import { CartService } from './../cart/service/cart.service';
 import { CustomersProductService } from './service/customers-products.service';
 
 @Component({
@@ -13,7 +19,11 @@ export class ProductsComponent implements OnInit {
   products: Product[] = [];
   dataSource: MatTableDataSource<Product>;
 
-  constructor(private productsService: CustomersProductService) {
+  constructor(
+    private productsService: CustomersProductService,
+    private snack: MatSnackBar,
+    private cartService: CartService
+  ) {
     this._setBreakPoint(window.innerWidth);
     this.dataSource = new MatTableDataSource<Product>(this.products);
   }
@@ -69,7 +79,16 @@ export class ProductsComponent implements OnInit {
       console.log(this.products);
     });
   }
+  // Share
+  // Todo
+  share() {}
+
   ngOnInit(): void {
     this._getProducts();
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    this.snack.open('Item Added', SNACKBAR_BUTTON_TITLE, SNACKBAR_OPTIONS);
   }
 }

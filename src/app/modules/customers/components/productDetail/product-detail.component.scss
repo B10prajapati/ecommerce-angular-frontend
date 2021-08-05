@@ -1,0 +1,17 @@
+.product-card {
+  min-width: 200px;
+  width: 200px;
+
+  // padding: 20px;
+  overflow: hidden;
+}
+
+.product-image {
+  height: 200px;
+
+  object-fit: cover;
+}
+
+.product-grid-list {
+  width: 100vw;
+}

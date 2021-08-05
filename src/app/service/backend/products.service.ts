@@ -42,7 +42,7 @@ export class ProductsService extends BaseService {
     );
   };
 
-  /* GET heroes with pagination */
+  /* GET products with pagination */
   paginateProduct(
     page: number = 1,
     limit: number = 10
@@ -56,7 +56,14 @@ export class ProductsService extends BaseService {
     console.log(options);
     return this.http
       .get<PaginatedResult<Product[]>>(this.productUrl, options)
-      .pipe(catchError((err) => this.handleError(err, 'searchHeroes', [])));
+      .pipe(catchError((err) => this.handleError(err, 'paginateProducts', [])));
+  }
+
+  /* GET product with ID */
+  getProductById(id: string): Observable<Product> {
+    return this.http
+      .get<Product>(`${this.productUrl}/${id}`)
+      .pipe(catchError((err) => this.handleError(err, 'getProductBYId', [])));
   }
 
   /** POST: add a new hero to the database */

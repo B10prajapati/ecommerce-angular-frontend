@@ -1,0 +1,46 @@
+<mat-card *ngIf="product">
+  <img
+    mat-card-image
+    class="product-image"
+    src="{{
+      product.images.length > 0
+        ? product.images[0].url + '?tr=h-200,w-200,fo-auto'
+        : 'https://ik.imagekit.io/829hd1y1oc3/default-image.jpg?updatedAt=1627616694601'
+    }}"
+    alt=""
+  />
+  <mat-card-header class="product-header">
+    <div
+      mat-card-avatar
+      style="
+      background-size: cover;
+      background-image: url('{{
+        product.images.length > 0
+          ? product.images[0].url
+          : 'https://ik.imagekit.io/829hd1y1oc3/default-image.jpg?updatedAt=1627616694601'
+      }}');
+    "
+    ></div>
+    <mat-card-title>{{ product.name }}</mat-card-title>
+    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Description:{{ product.description }}</p>
+    <p>Brand:</p>
+    <p>Price: Rs. {{ product.price }}</p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <label>Quantity: </label>
+    <button mat-icon-button (click)="decrementQuantity()">
+      <mat-icon>remove</mat-icon>
+    </button>
+    <input type="number" [(ngModel)]="quantity" [attr.min]="0" />
+    <button mat-icon-button (click)="incrementQuantity()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button mat-raised-button color="accent" (click)="addToCart(product)">
+      Buy
+    </button>
+  </mat-card-actions>
+</mat-card>

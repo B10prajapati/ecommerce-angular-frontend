@@ -1,7 +1,13 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { AngularMaterialModule } from '../angular-material/angular-material.module';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 import { DynamicFormModule } from '../dynamic-form/dynamic-form.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { CategoriesComponent } from './components/categories/categories.component';
@@ -23,9 +29,17 @@ import { UsersComponent } from './components/users/users.component';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    AngularMaterialModule,
+
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatTableModule,
+    MatIconModule,
+    MatTabsModule,
+    MatDialogModule,
 
     DynamicFormModule,
+
     DragDropModule,
   ],
 })

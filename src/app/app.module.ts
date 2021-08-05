@@ -1,3 +1,4 @@
+import { MatBadgeModule } from '@angular/material/badge';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,6 +37,7 @@ import { AuthInterceptorProvider } from './service/interceptor/auth.interceptor'
     MatListModule,
     MatSidenavModule,
     MatSnackBarModule,
+    MatBadgeModule,
   ],
   providers: [CookieService, AuthInterceptorProvider],
   bootstrap: [AppComponent],

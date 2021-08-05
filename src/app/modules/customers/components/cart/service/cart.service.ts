@@ -1,30 +1,77 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { Subject } from 'rxjs';
+import { Product } from 'src/app/service/backend/products.service';
 
+export interface Cart extends Product {
+  quantity: number;
+}
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
+  private _items: Subject<Cart[]> = new Subject<Cart[]>();
+  readonly items$ = this._items.asObservable();
+
+  private items: Cart[] = [];
+
   constructor(private http: HttpClient) {}
 
-  getAllProducts() {
-    return this.http.get(`${environment.baseURL}/product`);
+  loadAll() {
+    this.items = [];
+    this._items.next(this.items);
+  }
+  create(item: Cart) {
+    this.items.push(item);
+    this._items.next(Object.assign([], this.items));
   }
 
-  addToCart(payload: any) {
-    return this.http.post(`${environment.baseURL}/cart`, payload);
+  update() {
+    this._items.next(Object.assign([], this.items));
   }
 
-  getCartItems() {
-    return this.http.get(`${environment.baseURL}/cart`);
+  remove(id: string) {
+    this.items = this.items.filter((item) => item.id !== id);
+    this._items.next(Object.assign([], this.items));
+    return this.items;
   }
 
-  increaseQty(payload: any) {
-    return this.http.post(`${environment.baseURL}/cart`, payload);
+  addToCart(product: Product, quantity: number = 1) {
+    let inCart = false;
+
+    this.items = this.items.map((item) => {
+      if (item.id === product.id) {
+        item.quantity += quantity;
+        inCart = true;
+      }
+      return item;
+    });
+
+    if (!inCart) this.items.push({ ...product, quantity });
+
+    this.update();
+
+    localStorage.setItem('cart', JSON.stringify(this.items));
+
+    const cart = localStorage.getItem('cart');
+    console.log(cart);
   }
 
-  emptyCart() {
-    return this.http.delete(`${environment.baseURL}/cart/empty-cart`);
+  getItems() {
+    if (this.items.length === 0) {
+      const cart = localStorage.getItem('cart');
+      if (cart) {
+        this.items = JSON.parse(cart);
+      }
+    }
+    console.log('ITEM', this.items);
+    this.update();
+    return this.items;
+  }
+
+  clearCart() {
+    this.items = [];
+    localStorage.setItem('cart', JSON.stringify(this.items));
+    return this.items;
   }
 }
