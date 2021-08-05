@@ -43,7 +43,8 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     this.reset = !this.reset;
 
-    if (this.form) this.form.setValue(changes.value.currentValue);
+    if (changes.value)
+      if (this.form) this.form.setValue(changes.value.currentValue);
   }
 
   onSubmit() {

@@ -9,6 +9,7 @@ export interface Product {
   id: string;
   name: string;
   price: number;
+  description: string;
   isActive: boolean;
   createdDateTime: Date;
   updatedDateTime: Date;

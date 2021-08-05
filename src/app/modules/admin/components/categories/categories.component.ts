@@ -43,6 +43,7 @@ export class CategoriesComponent implements OnInit {
         updatedDateTime: new Date(Date.now()),
         price: 0,
         images: [],
+        description: '',
       },
     ];
 

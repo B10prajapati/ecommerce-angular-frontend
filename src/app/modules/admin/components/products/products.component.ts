@@ -63,6 +63,7 @@ export class ProductsComponent implements OnInit {
         updatedDateTime: new Date(Date.now()),
         price: 0,
         images: [],
+        description: '',
       },
     ];
 
@@ -170,6 +171,7 @@ export class ProductsComponent implements OnInit {
       price: product.price,
       isActive: product.isActive,
       images: product.images,
+      description: product.description,
     };
     console.log(this.selectedTab);
   }
