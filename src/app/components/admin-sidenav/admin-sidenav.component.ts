@@ -26,7 +26,7 @@ export class AdminSidenavComponent implements OnDestroy, AfterViewInit {
   fillerNav = [
     { name: 'User', route: 'users' },
     { name: 'Product', route: 'products' },
-    { name: 'Category', route: 'categories' },
+    // { name: 'Category', route: 'categories' },
     { name: 'Dashboard', route: 'dashboard' },
   ];
   private _mobileQueryListener: () => void;
