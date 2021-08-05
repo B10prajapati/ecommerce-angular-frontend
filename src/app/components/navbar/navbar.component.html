@@ -5,6 +5,7 @@
     <span class="example-spacer"></span>
 
     <button
+      *ngIf="!isLoggedIn"
       routerLink="auth/login"
       routerLinkActive="mat-raised-button"
       mat-button
@@ -16,6 +17,7 @@
     </button>
 
     <button
+      *ngIf="!isLoggedIn"
       routerLink="auth/register"
       color="secondary"
       mat-button
@@ -25,6 +27,7 @@
     >
       Register
     </button>
+
     <button
       routerLink="cart"
       mat-icon-button
@@ -32,6 +35,17 @@
       aria-hidden="false"
     >
       <mat-icon color="secondary"> shopping_cart </mat-icon>
+    </button>
+
+    <button
+      *ngIf="isLoggedIn"
+      (click)="logout()"
+      mat-button
+      color="secondary"
+      aria-label="Icon"
+      aria-hidden="false"
+    >
+      Logout
     </button>
   </mat-toolbar-row>
 </mat-toolbar>

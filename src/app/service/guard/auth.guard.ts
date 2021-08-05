@@ -6,18 +6,18 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import decode from 'jwt-decode';
-import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../backend/auth.service';
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(
-    private auth: AuthService,
-    private cookie: CookieService,
-    private router: Router
-  ) {}
+  redirectUrl = '/';
+  constructor(private auth: AuthService, private router: Router) {}
 
+  set changeRedirectUrl(url: string) {
+    this.redirectUrl = url;
+  }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     try {
       // https://stackoverflow.com/questions/49806553/angular-how-to-call-router-navigate-relative-to-target-route-in-a-routeguard
@@ -33,51 +33,36 @@ export class AuthGuard implements CanActivate {
 
       console.log(urlPath);
 
-      const token = this.cookie.get('auth-token');
+      const token = this.auth.getToken('auth-token');
+      const refreshToken = this.auth.getToken('refresh-token');
 
       console.log(token);
+      // Allow passthrough if either it is not expired and refresh token exits
       if (token) {
         const decodedToken = decode(token) as { exp: number };
 
-        // Token Expired if statement is true
-        if (Date.now() >= 1000 * decodedToken.exp) {
-          this.refresh(urlPath);
-        } else {
+        console.log(Date.now() < 1000 * decodedToken.exp);
+        // Token not expired or refresh token exits
+        if (Date.now() < 1000 * decodedToken.exp || refreshToken) {
           return true;
         }
-      } else {
-        this.refresh(urlPath);
+
+        // this.refresh(urlPath);
+      } else if (refreshToken) {
+        return true;
       }
 
+      this.router?.navigateByUrl(this.redirectUrl);
+
       return false;
+      // }
+
+      // return true;
     } catch (err) {
       console.log(err);
+      this.router?.navigateByUrl(this.redirectUrl);
+
       return false;
     }
-  }
-
-  refresh(route: string) {
-    this.auth.refresh().subscribe(
-      (data) => {
-        if (data.status === 'success') {
-          const { token, refresh_token } = data.data.payload;
-
-          this.cookie.delete('auth-token');
-          this.cookie.delete('refresh-token');
-
-          this.cookie.set('auth-token', token);
-          this.cookie.set('refresh-token', refresh_token);
-
-          this.router.navigateByUrl(route);
-        } else {
-          this.router.navigateByUrl('');
-        }
-      },
-      (err) => {
-        console.log('Deleting all cookie');
-        this.cookie.deleteAll();
-        console.log(err);
-      }
-    );
   }
 }

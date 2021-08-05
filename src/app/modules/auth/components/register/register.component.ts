@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { FormField } from 'src/app/modules/dynamic-form/form-field';
 import { AuthResult } from 'src/app/service/backend/auth.service';
@@ -17,8 +16,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     service: RegisterFormfieldControlService,
-    private auth: CustomerAuthService,
-    private cookie: CookieService
+    private auth: CustomerAuthService
   ) {
     this.formFields = service.getFormFields();
   }
@@ -34,9 +32,8 @@ export class RegisterComponent implements OnInit {
           password: data.password,
         })
         .subscribe((data: AuthResult) => {
-          console.log(data);
-          this.cookie.set('auth-token', data.data.payload.token);
-          this.cookie.set('refresh-token', data.data.payload.refresh_token!);
+          this.auth.setToken('auth-token', data.data.payload.token);
+          this.auth.setToken('refresh-token', data.data.payload.refresh_token);
         });
     else alert('Details supplied are invalid.');
   }

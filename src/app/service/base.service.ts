@@ -3,6 +3,7 @@ import { throwError } from 'rxjs';
 
 export abstract class BaseService {
   protected handleError(error: HttpErrorResponse, name?: string, data?: any) {
+    console.log(error);
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error(

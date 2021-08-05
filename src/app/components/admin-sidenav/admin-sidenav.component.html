@@ -1,6 +1,6 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <mat-toolbar color="primary" class="example-toolbar">
-    <button mat-icon-button (click)="snav.toggle()">
+    <button *ngIf="isLoggedIn" mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
     <h1 class="example-app-name">Responsive App</h1>
@@ -8,6 +8,7 @@
     <span class="admin-nav-spacer"></span>
 
     <button
+      *ngIf="!isLoggedIn"
       routerLink="admin/login"
       routerLinkActive="mat-raised-button"
       mat-button
@@ -16,6 +17,16 @@
       aria-hidden="false"
     >
       Login
+    </button>
+    <button
+      *ngIf="isLoggedIn"
+      (click)="logout()"
+      mat-button
+      color="secondary"
+      aria-label="Icon"
+      aria-hidden="false"
+    >
+      Logout
     </button>
   </mat-toolbar>
 
