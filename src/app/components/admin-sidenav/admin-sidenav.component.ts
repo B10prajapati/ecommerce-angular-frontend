@@ -3,10 +3,14 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  Input,
   OnDestroy,
   ViewChild,
 } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/backend/auth.service';
 
 @Component({
   selector: 'app-admin-sidenav',
@@ -17,6 +21,8 @@ export class AdminSidenavComponent implements OnDestroy, AfterViewInit {
   @ViewChild('snav') sideNav!: MatSidenav;
   mobileQuery: MediaQueryList;
 
+  @Input() isLoggedIn = false;
+
   fillerNav = [
     { name: 'User', route: 'users' },
     { name: 'Product', route: 'products' },
@@ -25,7 +31,13 @@ export class AdminSidenavComponent implements OnDestroy, AfterViewInit {
   ];
   private _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    private auth: AuthService,
+    private snack: MatSnackBar,
+    private router: Router
+  ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -35,17 +47,19 @@ export class AdminSidenavComponent implements OnDestroy, AfterViewInit {
     // console.log(e);
     // Tab,Ctrl,aLT and Space toggles tab
     // Escape closes tab if open
-    switch (e.key) {
-      case 'Escape':
-        this.sideNav.opened ? this.sideNav.close() : null;
-        break;
-      case ' ':
-      case 'Control':
-      case 'Alt':
-        this.sideNav.toggle();
+    if (this.isLoggedIn) {
+      switch (e.key) {
+        case 'Escape':
+          this.sideNav.opened ? this.sideNav.close() : null;
+          break;
 
-        break;
-      default:
+        case 'Control':
+        case 'Alt':
+          this.sideNav.toggle();
+
+          break;
+        default:
+      }
     }
   }
 
@@ -56,5 +70,11 @@ export class AdminSidenavComponent implements OnDestroy, AfterViewInit {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+  logout() {
+    this.auth.logout().subscribe((data) => {
+      this.router.navigateByUrl('/admin/login');
+    });
   }
 }

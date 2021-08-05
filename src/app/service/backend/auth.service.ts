@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { User } from 'src/app/service/backend/users.service';
 import { BaseService } from 'src/app/service/base.service';
 import { environment } from 'src/environments/environment';
@@ -41,7 +42,11 @@ export interface UserDataResult {
   providedIn: 'root',
 })
 export class AuthService extends BaseService {
-  constructor(private http: HttpClient, private cookie?: CookieService) {
+  constructor(
+    private http: HttpClient,
+    private cookie?: CookieService,
+    private router?: Router
+  ) {
     super();
   }
   authUrl = `${environment.baseURL}/auth`;
@@ -54,7 +59,6 @@ export class AuthService extends BaseService {
     };
     return this.http
       .post<AuthResult>(this.authUrl + '/login', body, httpOptions)
-
       .pipe(catchError((err) => this.handleError(err, 'login')));
   }
 
@@ -83,7 +87,26 @@ export class AuthService extends BaseService {
           { refresh_token: refreshToken },
           httpOptions
         )
-        .pipe(catchError((err) => this.handleError(err, 'login')));
+        .pipe(catchError((err) => this.handleError(err, 'refresh')));
+    }
+    return throwError('Refresh Token not available');
+  }
+
+  logout(route: string = '/') {
+    const refreshToken = this.cookie?.get('refresh-token');
+    if (refreshToken) {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        }),
+      };
+      const payload = { refresh_token: refreshToken };
+
+      this.cookie?.deleteAll('/');
+      this.router?.navigateByUrl(route);
+      return this.http
+        .post<AuthResult>(this.authUrl + '/logout', payload, httpOptions)
+        .pipe(catchError((err) => this.handleError(err, 'logout')));
     }
     return throwError('Refresh Token not available');
   }
@@ -96,9 +119,31 @@ export class AuthService extends BaseService {
     };
     return this.http
       .get<UserDataResult>(this.authUrl + '/me', httpOptions)
-      .pipe(
-        retry(2),
-        catchError((err) => this.handleError(err, 'me'))
-      );
+      .pipe(catchError((err) => this.handleError(err, 'me')));
+  }
+
+  getToken(name: 'auth-token' | 'refresh-token') {
+    return this.cookie?.get(name);
+  }
+
+  setToken(name: 'auth-token' | 'refresh-token', token: string) {
+    this.cookie?.set(
+      name,
+      token,
+      environment.cookieExpiresIn,
+      environment.cookiePath
+    );
+  }
+
+  deleteAllTokens() {
+    this.cookie?.deleteAll();
+  }
+
+  deleteToken(name: 'auth-token' | 'refresh-token') {
+    this.cookie?.delete(name, environment.cookiePath);
+  }
+
+  isLoggedIn() {
+    return !!(this.getToken('auth-token') || this.getToken('refresh-token'));
   }
 }

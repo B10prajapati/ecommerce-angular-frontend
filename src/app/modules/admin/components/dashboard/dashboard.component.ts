@@ -32,10 +32,15 @@ export class DashboardComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.auth.me().subscribe((data) => {
-      if (data.status === 'success') this.user = data.data;
+    this.auth.me().subscribe(
+      (data) => {
+        if (data.status === 'success') this.user = data.data;
 
-      console.log('User ', this.user);
-    });
+        console.log('User ', this.user);
+      },
+      (err) => {
+        console.log('ERROR', err);
+      }
+    );
   }
 }

@@ -74,12 +74,17 @@ export class ProductsComponent implements OnInit {
 
   addData(data: any) {
     console.log(data);
-    this.productService.addProduct(data).subscribe((data) => {
-      console.log(data);
-      this.products = this.products.concat(data);
-      this.dataSource.data = this.products;
-      this.snackBar.open('Product Added', 'Dismiss');
-    });
+    this.productService.addProduct(data).subscribe(
+      (data) => {
+        console.log(data);
+        this.products = this.products.concat(data);
+        this.dataSource.data = this.products;
+        this.snackBar.open('Product Added', 'Dismiss');
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   updateData(data: any) {
