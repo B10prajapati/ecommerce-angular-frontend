@@ -5,6 +5,10 @@
 export const environment = {
   production: false,
   baseURL: 'http://localhost:3000/api',
+  cookieExpiresIn: 60,
+  cookiePath: '/',
+  cookieXsrf: 'testPass',
+  headerXsrf: 'testPassHeader',
   // baseURL: 'https://ecommerce-nestjs-backend.herokuapp.com/api',
 };
 
