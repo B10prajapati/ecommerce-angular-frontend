@@ -1,12 +1,18 @@
 <!-- Addmin View -->
-<app-admin-sidenav *ngIf="router.url.includes('admin')">
+<app-admin-sidenav
+  [isLoggedIn]="isLoggedIn"
+  *ngIf="router.url.includes('admin')"
+>
   <div>
     <router-outlet *ngIf="router.url.includes('admin')"></router-outlet>
   </div>
 </app-admin-sidenav>
 
 <!-- Non Admin View -->
-<app-navbar *ngIf="!router.url.includes('admin')"></app-navbar>
+<app-navbar
+  [isLoggedIn]="isLoggedIn"
+  *ngIf="!router.url.includes('admin')"
+></app-navbar>
 <!-- ROuter Container -->
 <div class="container" *ngIf="!router.url.includes('admin')">
   <router-outlet></router-outlet>

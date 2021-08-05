@@ -35,6 +35,15 @@ export class AdminProductService extends ProductsService {
         required: true,
         order: 2,
       }),
+      new FormField<string>({
+        controlType: 'textbox',
+        key: 'description',
+        label: 'Description',
+        type: 'string',
+        required: true,
+        order: 3,
+        value: '',
+      }),
 
       new FormField<boolean>({
         controlType: 'checkbox',
@@ -43,12 +52,12 @@ export class AdminProductService extends ProductsService {
         type: 'boolean',
 
         value: true,
-        order: 3,
+        order: 4,
       }),
       new FormField({
         controlType: 'upload',
         key: 'images',
-        order: 4,
+        order: 5,
         value: '',
       }),
     ];

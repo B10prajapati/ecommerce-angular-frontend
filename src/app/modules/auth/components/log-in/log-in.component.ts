@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { FormField } from 'src/app/modules/dynamic-form/form-field';
 import { AuthResult, AuthService } from 'src/app/service/backend/auth.service';
@@ -20,7 +19,6 @@ export class LogInComponent {
   constructor(
     service: LoginFormfieldControlService,
     private auth: AuthService,
-    private cookie: CookieService,
     private router: Router
   ) {
     this.formFields = service.getFormFields();
@@ -58,11 +56,10 @@ export class LogInComponent {
           })
           .subscribe(
             (data: AuthResult) => {
-              console.log(data);
-              this.cookie.set('auth-token', data.data.payload.token);
-              this.cookie.set(
+              this.auth.setToken('auth-token', data.data.payload.token);
+              this.auth.setToken(
                 'refresh-token',
-                data.data.payload.refresh_token!
+                data.data.payload.refresh_token
               );
             },
             (err) => {
