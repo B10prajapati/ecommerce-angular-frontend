@@ -15,8 +15,10 @@ import {
   styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit {
-  product: Product | undefined;
+  product: Product | null = null;
   quantity: number = 1;
+
+  selectedImage?: Product['images'][0];
 
   constructor(
     private productService: CustomersProductService,
@@ -34,6 +36,8 @@ export class ProductDetailComponent implements OnInit {
       .getProductById(productIdFromRoute!)
       .subscribe((data) => {
         this.product = data;
+        console.log(data);
+        this.selectedImage = data.images[0];
       });
   }
 
@@ -53,5 +57,9 @@ export class ProductDetailComponent implements OnInit {
 
   setQuantity(qty: number) {
     this.quantity = qty;
+  }
+
+  handleImageSelect(image: Product['images'][0]) {
+    this.selectedImage = image;
   }
 }

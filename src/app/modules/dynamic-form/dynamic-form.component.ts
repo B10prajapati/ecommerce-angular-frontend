@@ -27,33 +27,32 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   @Input() value: {
     [key: string]: any;
   } = {};
-
+  @Input() formGroup?: FormGroup;
   public reset = false;
 
   @Output() formData = new EventEmitter();
 
-  form!: FormGroup;
-
   constructor(private formfieldService: FormfieldControlService) {}
 
   ngOnInit(): void {
-    this.form = this.formfieldService.toFormGroup(this.formFields!);
+    if (!this.formGroup)
+      this.formGroup = this.formfieldService.toFormGroup(this.formFields!);
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.reset = !this.reset;
 
     if (changes.value)
-      if (this.form) this.form.setValue(changes.value.currentValue);
+      if (this.formGroup) this.formGroup.setValue(changes.value.currentValue);
   }
 
   onSubmit() {
-    this.formData.emit(this.form.getRawValue());
-    this.form.reset();
+    this.formData.emit(this.formGroup?.getRawValue());
+    this.formGroup?.reset();
     this.reset = !this.reset;
   }
   onReset() {
-    this.form.reset();
+    this.formGroup?.reset();
     this.reset = !this.reset;
   }
 }

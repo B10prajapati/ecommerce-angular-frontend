@@ -36,7 +36,7 @@ export class AdminProductService extends ProductsService {
         order: 2,
       }),
       new FormField<string>({
-        controlType: 'textbox',
+        controlType: 'textarea',
         key: 'description',
         label: 'Description',
         type: 'string',

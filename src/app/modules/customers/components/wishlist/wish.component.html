@@ -3,7 +3,6 @@
 <div class="cart-item" *ngFor="let item of items">
   <span>Name: {{ item.name }}</span>
   <span> Price: {{ item.price | currency: "Rs ":"symbol":"3.0" }}</span>
-  <span>Quantity: {{ item.quantity }}</span>
 
   <button mat-icon-button (click)="delete(item.id)">
     <mat-icon color="warn">delete</mat-icon>

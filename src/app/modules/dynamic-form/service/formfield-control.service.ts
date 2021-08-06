@@ -14,7 +14,7 @@ import { FormField } from '../form-field';
 export class FormfieldControlService {
   constructor() {}
 
-  toFormGroup(inputs: FormField<string>[]): FormGroup {
+  toFormGroup(inputs: FormField<string | number | boolean>[]): FormGroup {
     const group: any = {};
 
     inputs.forEach((input) => {

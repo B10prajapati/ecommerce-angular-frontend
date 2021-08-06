@@ -11,6 +11,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/backend/auth.service';
+import { WEBSITE_TITLE } from 'src/app/service/utils/config';
 
 @Component({
   selector: 'app-admin-sidenav',
@@ -30,7 +31,7 @@ export class AdminSidenavComponent implements OnDestroy, AfterViewInit {
     { name: 'Dashboard', route: 'dashboard' },
   ];
   private _mobileQueryListener: () => void;
-
+  title = WEBSITE_TITLE;
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,

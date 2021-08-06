@@ -16,7 +16,8 @@ import { CustomersProductService } from './service/customers-products.service';
 })
 export class ProductsComponent implements OnInit {
   breakpoint: number = 4;
-  products: Product[] = [];
+  products: Product[] = new Array(4);
+
   dataSource: MatTableDataSource<Product>;
 
   constructor(
@@ -85,10 +86,5 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this._getProducts();
-  }
-
-  addToCart(product: Product) {
-    this.cartService.addToCart(product);
-    this.snack.open('Item Added', SNACKBAR_BUTTON_TITLE, SNACKBAR_OPTIONS);
   }
 }

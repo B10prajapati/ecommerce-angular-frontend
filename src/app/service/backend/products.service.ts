@@ -16,7 +16,7 @@ export interface Product {
   updatedDateTime: Date;
   images: {
     url: string;
-    thumbnail: string;
+    thumbnailUrl: string;
     name: string;
   }[];
 }

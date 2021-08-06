@@ -41,11 +41,11 @@ export class ProductsComponent implements OnInit {
 
   imgFile: string = '';
 
-  public uploadForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    file: new FormControl('', [Validators.required]),
-    imgSrc: new FormControl('', [Validators.required]),
-  });
+  // public uploadForm = new FormGroup({
+  //   name: new FormControl('', [Validators.required]),
+  //   file: new FormControl('', [Validators.required]),
+  //   imgSrc: new FormControl('', [Validators.required]),
+  // });
 
   constructor(
     private productService: AdminProductService,

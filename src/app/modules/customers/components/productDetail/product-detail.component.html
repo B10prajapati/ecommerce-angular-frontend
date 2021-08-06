@@ -1,14 +1,44 @@
 <mat-card *ngIf="product">
-  <img
-    mat-card-image
-    class="product-image"
-    src="{{
-      product.images.length > 0
-        ? product.images[0].url + '?tr=h-200,w-200,fo-auto'
-        : 'https://ik.imagekit.io/829hd1y1oc3/default-image.jpg?updatedAt=1627616694601'
-    }}"
-    alt=""
-  />
+  <mat-grid-list cols="1">
+    <mat-grid-tile>
+      <img
+        mat-card-image
+        class="product-image"
+        src="{{
+          selectedImage
+            ? selectedImage.url
+            : 'https://ik.imagekit.io/829hd1y1oc3/default-image.jpg?updatedAt=1627616694601'
+        }}"
+        alt=""
+      />
+      <img
+        mat-card-image
+        class="product-image"
+        src="{{
+          'https://ik.imagekit.io/829hd1y1oc3/default-image.jpg?updatedAt=1627616694601'
+        }}"
+        alt=""
+        *ngIf="product.images.length === 0"
+      />
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list cols="3">
+    <mat-grid-tile *ngFor="let image of product.images">
+      <img
+        mat-card-image
+        class="product-thumbnail-image"
+        src="{{
+          image
+            ? image.thumbnailUrl + '?tr=h-200,w-200,fo-auto'
+            : 'https://ik.imagekit.io/829hd1y1oc3/default-image.jpg?updatedAt=1627616694601'
+        }}"
+        alt=""
+        (click)="handleImageSelect(image)"
+      />
+    </mat-grid-tile>
+  </mat-grid-list>
+
   <mat-card-header class="product-header">
     <div
       mat-card-avatar
@@ -35,7 +65,7 @@
     <button mat-icon-button (click)="decrementQuantity()">
       <mat-icon>remove</mat-icon>
     </button>
-    <input type="number" [(ngModel)]="quantity" [attr.min]="0" />
+    <input type="number" [value]="quantity" [attr.min]="0" />
     <button mat-icon-button (click)="incrementQuantity()">
       <mat-icon>add</mat-icon>
     </button>

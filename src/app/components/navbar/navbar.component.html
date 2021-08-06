@@ -1,6 +1,8 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button mat-button routerLink="/">My App</button>
+    <button mat-button routerLink="/">
+      <h1>{{ title }}</h1>
+    </button>
 
     <span class="example-spacer"></span>
 
@@ -41,6 +43,22 @@
         matBadgeSize="small"
       >
         shopping_cart
+      </mat-icon>
+    </button>
+
+    <button
+      routerLink="wishlist"
+      mat-icon-button
+      aria-label="Icon"
+      aria-hidden="false"
+    >
+      <mat-icon
+        color="secondary"
+        matBadge="{{ (wishlist$ | async)?.length }}"
+        matBadgeColor="accent"
+        matBadgeSize="small"
+      >
+        favorite_border
       </mat-icon>
     </button>
 

@@ -6,3 +6,5 @@ export const SNACKBAR_OPTIONS: MatSnackBarConfig = {
   verticalPosition: 'bottom',
   duration: 3000,
 };
+
+export const WEBSITE_TITLE = 'SanoSansar';

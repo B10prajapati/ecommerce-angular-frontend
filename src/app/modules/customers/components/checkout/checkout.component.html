@@ -1,0 +1,21 @@
+<mat-stepper [orientation]="(stepperOrientation | async)!" [linear]="true">
+  <mat-step
+    [stepControl]="stepper.formGroup"
+    [label]="stepper.label"
+    *ngFor="let stepper of stepperInfo"
+    [state]="stepper.state"
+  >
+    <div>
+      <form [formGroup]="stepper.formGroup">
+        <div *ngFor="let formField of stepper.formFields" class="form-group">
+          <app-dynamic-form-input
+            [input]="formField"
+            [form]="stepper.formGroup"
+          ></app-dynamic-form-input>
+        </div>
+      </form>
+    </div>
+
+    <button mat-button matStepperNext>Next</button>
+  </mat-step>
+</mat-stepper>

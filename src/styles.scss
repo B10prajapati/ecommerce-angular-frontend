@@ -4,7 +4,17 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
+  height: 100%;
+  position: relative;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  min-height: 100vh;
+  background: #e2e2e2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }

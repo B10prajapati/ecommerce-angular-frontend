@@ -1,0 +1,92 @@
+<mat-card class="product-card">
+  <div *ngIf="product">
+    <a
+      [title]="product.name + ' details'"
+      [routerLink]="['/products', product.id]"
+    >
+      <img
+        mat-card-image
+        class="product-image"
+        src="{{
+          product.images.length > 0
+            ? product.images[0].url + '?tr=h-400,w-400,fo-auto'
+            : 'https://ik.imagekit.io/829hd1y1oc3/default-image.jpg?updatedAt=1627616694601'
+        }}"
+        alt=""
+      />
+    </a>
+    <mat-card-header class="product-header">
+      <div
+        mat-card-avatar
+        style="
+            background-size: cover;
+            background-image: url('{{
+          product.images.length > 0
+            ? product.images[0].url
+            : 'https://ik.imagekit.io/829hd1y1oc3/default-image.jpg?updatedAt=1627616694601'
+        }}');
+          "
+      ></div>
+
+      <mat-card-title
+        ><a
+          [title]="product.name + ' details'"
+          [routerLink]="['/products', product.id]"
+          >{{ product.name }}
+        </a></mat-card-title
+      >
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Description:{{ product.description }}</p>
+      <p>Brand:</p>
+      <p>Price: Rs. {{ product.price }}</p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-icon-button (click)="addToCart(product!)">
+        <mat-icon>add_shopping_cart</mat-icon>
+      </button>
+      <button mat-icon-button (click)="addToWishlist(product)">
+        <mat-icon color="accent">
+          {{ inWishlist ? "favorite" : "favorite_border" }}
+        </mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon> share </mat-icon>
+      </button>
+
+      <ng-content></ng-content>
+    </mat-card-actions>
+  </div>
+
+  <div *ngIf="!product">
+    <img
+      mat-card-image
+      class="product-image"
+      src="{{
+        'https://ik.imagekit.io/829hd1y1oc3/default-image.jpg?updatedAt=1627616694601'
+      }}"
+      alt=""
+    />
+    <mat-card-header class="product-header">
+      <div
+        mat-card-avatar
+        style="
+            background-size: cover;
+            background-image: url('{{
+          'https://ik.imagekit.io/829hd1y1oc3/default-image.jpg?updatedAt=1627616694601'
+        }}');
+          "
+      ></div>
+
+      <mat-card-title>Name </mat-card-title>
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Description:</p>
+      <p>Brand:</p>
+      <p>Price: Rs.</p>
+    </mat-card-content>
+  </div>
+</mat-card>
