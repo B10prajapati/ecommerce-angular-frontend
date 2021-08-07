@@ -1,21 +1,23 @@
 <div class="grid-container">
-  <!-- Addmin View -->
-  <app-admin-sidenav
-    [isLoggedIn]="isLoggedIn"
-    *ngIf="router.url.includes('admin')"
-  >
-    <div class="grid-inner-container">
-      <router-outlet></router-outlet>
-    </div>
-  </app-admin-sidenav>
+  <div>
+    <!-- Addmin View -->
+    <app-admin-sidenav
+      [isLoggedIn]="isLoggedIn"
+      *ngIf="router.url.includes('admin')"
+    >
+      <div class="grid-item-container">
+        <router-outlet *ngIf="router.url.includes('admin')"></router-outlet>
+      </div>
+    </app-admin-sidenav>
 
-  <!-- Non Admin View -->
-  <app-navbar [isLoggedIn]="isLoggedIn" *ngIf="!router.url.includes('admin')">
-    <!-- ROuter Container -->
-    <div class="grid-inner-container">
-      <router-outlet></router-outlet>
-    </div>
-  </app-navbar>
+    <!-- Non Admin View -->
+    <app-navbar [isLoggedIn]="isLoggedIn" *ngIf="!router.url.includes('admin')">
+      <!-- ROuter Container -->
+      <div class="grid-item-container">
+        <router-outlet></router-outlet>
+      </div>
+    </app-navbar>
+  </div>
 
   <footer class="grid-footer">
     <div class="footer-content">
