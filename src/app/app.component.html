@@ -1,19 +1,58 @@
-<!-- Addmin View -->
-<app-admin-sidenav
-  [isLoggedIn]="isLoggedIn"
-  *ngIf="router.url.includes('admin')"
->
-  <div>
-    <router-outlet *ngIf="router.url.includes('admin')"></router-outlet>
-  </div>
-</app-admin-sidenav>
+<div class="grid-container">
+  <!-- Addmin View -->
+  <app-admin-sidenav
+    [isLoggedIn]="isLoggedIn"
+    *ngIf="router.url.includes('admin')"
+  >
+    <div class="grid-inner-container">
+      <router-outlet></router-outlet>
+    </div>
+  </app-admin-sidenav>
 
-<!-- Non Admin View -->
-<app-navbar
-  [isLoggedIn]="isLoggedIn"
-  *ngIf="!router.url.includes('admin')"
-></app-navbar>
-<!-- ROuter Container -->
-<div class="container" *ngIf="!router.url.includes('admin')">
-  <router-outlet></router-outlet>
+  <!-- Non Admin View -->
+  <app-navbar [isLoggedIn]="isLoggedIn" *ngIf="!router.url.includes('admin')">
+    <!-- ROuter Container -->
+    <div class="grid-inner-container">
+      <router-outlet></router-outlet>
+    </div>
+  </app-navbar>
+
+  <footer class="grid-footer">
+    <div class="footer-content">
+      <mat-card>
+        <mat-card-content>
+          <div class="footer-grid-container">
+            <div class="footer-grid-content">
+              <h4>Information</h4>
+              <p>FAQ</p>
+              <p>About Us</p>
+              <p>Contact Us</p>
+              <p>Privacy Policy</p>
+              <p>Terms of Use</p>
+              <p>Return and Refund Policy</p>
+            </div>
+            <div class="footer-grid-content">
+              <h4>Contact</h4>
+              <p>SanoSanar Pvt.Ltd,</p>
+              <p>Kathmandu</p>
+              <p>Nepal</p>
+              <p>MOb: 96402321231</p>
+              <p>Tel: 01324234</p>
+              <p>Email: email@email.com</p>
+              <p>Facebook: fb.com/sanosansar</p>
+            </div>
+
+            <div class="footer-grid-content">
+              <h3>SanoSanar</h3>
+              <p>Lorem ipsum sth sdfsd fsdfs dlsjdfjldsk</p>
+            </div>
+          </div>
+          <p>
+            &copy; Copyritght of so and so sdfsd df sfs df sdfds fsd sdfds asdf
+            ds sd ds f df
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </footer>
 </div>
