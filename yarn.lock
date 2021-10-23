@@ -233,10 +233,10 @@
   dependencies:
     tslib "^2.1.0"
 
-"@angular/flex-layout@^12.0.0-beta.34":
-  version "12.0.0-beta.34"
-  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-12.0.0-beta.34.tgz#24d83bf3f8e4eacb661b3b8f9f85b0102415ff30"
-  integrity sha512-nLwKovXpyG+/U3Lbmfwt+q4ARupxtbPmFTZD0Y8oItFAV6/Oh9l+QQsNQa2VhOHAOrVagyDwcEM+SePtB5EmrQ==
+"@angular/flex-layout@^12.0.0-beta.35":
+  version "12.0.0-beta.35"
+  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-12.0.0-beta.35.tgz#b52c3c82608cbb92a119f8dcde2a5b98186fe558"
+  integrity sha512-nPi2MGDFuCacwWHqxF/G7lUJd2X99HbLjjUvKXnyLwyCIVgH1sfS52su2wYbVYWJRqAVAB2/VMlrtW8Khr8hDA==
   dependencies:
     tslib "^2.1.0"
 
@@ -4357,10 +4357,10 @@ istanbul-reports@^3.0.0:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
 
-jasmine-core@^3.6.0, jasmine-core@~3.10.0:
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-3.10.0.tgz#1e3e4053d954eb6d0bfbb3eb859bb21a5655de45"
-  integrity sha512-XWGaJ25RUdOQnjGiLoQa9QG/R4u1e9Bk4uhLdn9F4JCBco84L4SKM52bxci4vWTSUzhmhuHNAkAHFN/6Cox9wQ==
+jasmine-core@^3.6.0, jasmine-core@~3.10.1:
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-3.10.1.tgz#7aa6fa2b834a522315c651a128d940eca553989a"
+  integrity sha512-ooZWSDVAdh79Rrj4/nnfklL3NQVra0BcuhcuWoAwwi+znLDoUeH87AFfeX8s+YeYi6xlv5nveRyaA1v7CintfA==
 
 jest-worker@^27.0.2:
   version "27.0.6"
