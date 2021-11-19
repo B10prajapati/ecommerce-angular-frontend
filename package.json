@@ -34,7 +34,7 @@
     "@angular/compiler-cli": "~12.0.0",
     "@types/compress.js": "^1.1.1",
     "@types/jasmine": "~3.8.2",
-    "@types/node": "^16.11.4",
+    "@types/node": "^16.11.8",
 
 
     "jasmine-core": "~3.10.1",
